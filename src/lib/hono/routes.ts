@@ -7,6 +7,7 @@ import {
   rateLimitMiddleware,
   shieldMiddleware,
 } from "./middlewares";
+import { createRateLimiterIdentifier } from "./helper";
 import { handleImageRequest } from "@/features/media/media.service";
 import { serverEnv } from "@/lib/env/server.env";
 
@@ -59,7 +60,7 @@ app.get(
   rateLimitMiddleware({
     capacity: 100,
     interval: "1m",
-    identifier: (c) => c.req.header("cf-connecting-ip") ?? "unknown",
+    identifier: createRateLimiterIdentifier,
   }),
   (c) => {
     const auth = c.get("auth");
@@ -73,7 +74,7 @@ app.post(
   rateLimitMiddleware({
     capacity: 10,
     interval: "1m",
-    identifier: (c) => c.req.header("cf-connecting-ip") ?? "unknown",
+    identifier: createRateLimiterIdentifier,
   }),
   (c) => {
     const auth = c.get("auth");
