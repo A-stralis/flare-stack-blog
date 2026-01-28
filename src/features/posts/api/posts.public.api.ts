@@ -13,7 +13,7 @@ import {
 export const getPostsCursorFn = createServerFn()
   .middleware([
     createRateLimitMiddleware({
-      capacity:30,
+      capacity: 30,
       interval: "1m",
       key: "posts:getCursor",
     }),
@@ -27,7 +27,7 @@ export const getPostsCursorFn = createServerFn()
 export const findPostBySlugFn = createServerFn()
   .middleware([
     createRateLimitMiddleware({
-      capacity:30,
+      capacity: 30,
       interval: "1m",
       key: "posts:findBySlug",
     }),
